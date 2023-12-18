@@ -1,0 +1,60 @@
+version: "3.7"
+
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: >
+            /bin/bash -c "
+                cd /var/www/html;
+                composer install --no-interaction --optimize-autoloader;
+                php artisan jwt:secret --always-no
+                php artisan storage:link;
+                php artisan migrate --force;
+                php artisan db:seed;
+                php artisan optimize:clear;
+                composer graphql;
+                apache2-foreground
+            "
+        ports:
+            - ${PORT_EXT_APP:-80}:${PORT_APP:-80}
+        depends_on:
+            - mysql
+        volumes:
+            - "./:/var/www/html:cached"
+            - "~/.composer/cache/:/root/.composer/cache:cached"
+        networks:
+            - bbs
+
+    mailpit:
+        image: "axllent/mailpit:latest"
+        ports:
+            - "${MAIL_EXT_PORT:-1025}:1025"
+            - "${MAILSPIT_DASHBOARD_PORT:-8025}:8025"
+        environment:
+            TZ: "Europe/Paris"
+        restart: unless-stopped
+        networks:
+            - bbs
+
+    mysql:
+        image: mysql/mysql-server:8.0
+        command: [ "mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci" ]
+        ports:
+            - ${DB_PORT_EXT:-3306}:${DB_PORT:-3306}
+        environment:
+            MYSQL_DATABASE: "${DB_DATABASE:-bbs_test}"
+            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD:-root}"
+            MYSQL_ROOT_HOST: "%"
+        restart: unless-stopped
+        volumes:
+            - "db-mysql:/var/lib/mysql:cached"
+        networks:
+            - bbs
+
+networks:
+    bbs: null
+
+volumes:
+    db-mysql: null

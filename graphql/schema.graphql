@@ -1,0 +1,6 @@
+#import _scalars.graphql
+
+type Mutation
+type Query
+
+#import **/*.graphql

@@ -1,0 +1,12 @@
+extend type Query {
+    login(
+        email: String!
+        password: String!
+    ): User
+    @validator
+    @validate
+
+    refresh: String
+
+    me: User @auth
+}
