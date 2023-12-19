@@ -28,8 +28,7 @@ class ImportBodies extends Action
     {
         $bodies = Http::get('https://api.le-systeme-solaire.net/rest/bodies/')->json()['bodies'];
         $firstBody = $bodies[0]['mass'];
-        collect($bodies);
-            dd($firstBody)
+        collect($bodies)
             ->map(function($body) {
                    return [
                         'name' => $body['name'],
