@@ -119,6 +119,8 @@ class Body extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            Actions\ImportBodies::make()->standalone()
+        ];
     }
 }
