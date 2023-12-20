@@ -27,14 +27,13 @@ class ImportBodies extends Action
     public function handle(ActionFields $fields, Collection $models): ActionResponse
     {
         $bodies = Http::get('https://api.le-systeme-solaire.net/rest/bodies/')->json()['bodies'];
-        $firstBody = $bodies[0]['mass'];
         collect($bodies)
             ->map(function($body) {
                    return [
                         'name' => $body['name'],
                         'english_name' => $body['englishName'],
                         'is_planet' => $body['isPlanet'],
-                        'moons' => $body['moons'],
+//                        'moons' => $body['moons'],
                         'semimajor_axis' => $body['semimajorAxis'],
                         'perihelion' => $body['perihelion'],
                         'aphelion' => $body['aphelion'],
@@ -67,7 +66,7 @@ class ImportBodies extends Action
                 Body::query()->upsert($records->toArray(), ['name'], ['english_name', 'is_planet', 'moons', 'semimajor_axis', 'perihelion', 'aphelion', 'eccentricity', 'inclination', 'masses', 'vol', 'density', 'gravity', 'escape', 'mean_radius', 'equa_radius', 'polar_radius', 'flattening', 'dimension', 'sideral_orbit', 'sideral_rotation', 'around_planet', 'discovered_by', 'discovery_date', 'alternative_name', 'axial_tilt', 'rel', 'avg_temp', 'body_type']);
             });
 
-        return ActionResponse::message('CSV imported successfully.');
+        return ActionResponse::message('Bodies imported successfully.');
 
     }
 

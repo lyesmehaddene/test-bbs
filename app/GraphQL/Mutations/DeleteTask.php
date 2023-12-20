@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
-use App\GraphQL\Validators\Mutation\DeleteTaskValidator;
 use App\Models\Task;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Hash;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 class DeleteTask
 {

@@ -1,0 +1,9 @@
+type Department {
+    id: ID!
+    department_code: String!
+    department_name: String!
+    region_code: String!
+    region_name: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
