@@ -15,9 +15,9 @@ class Body extends Resource
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Department>
+     * @var class-string<\App\Models\Body>
      */
-    public static $model = \App\Models\Department::class;
+    public static $model = \App\Models\Body::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

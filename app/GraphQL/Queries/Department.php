@@ -4,9 +4,9 @@ namespace App\GraphQL\Queries;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
-use App\Models\Department;
+use App\Models\Department as Model;
 
-class FindDepartment
+class Department
 {
     /**
      * @param mixed $_
@@ -16,16 +16,10 @@ class FindDepartment
     public function __invoke(mixed $_, array $args): ?Department
 
     {
-        try {
-            $department = Department::query()
+            $department = Model::query()
                 ->where('id', $args['id'])
                 ->firstOrFail();
 
             return $department;
         }
-
-        catch(ModelNotFoundException $exception){
-            throw ValidationException::withMessages(['id' => 'The requested Department id does not exist.']);
-        }
     }
-}
