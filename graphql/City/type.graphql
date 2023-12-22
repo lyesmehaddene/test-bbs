@@ -1,0 +1,17 @@
+type City {
+    id: ID!
+    insee_city_code: String!
+    postal_city_name: String!
+    postal_code: String!
+    acheminement_name: String!
+    line_5: String!
+    latitude: Float!
+    longitude: Float!
+    city_code: String!
+    article: String!
+    city_name: String!
+    city_full_name: String!
+    department_id: ID!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
