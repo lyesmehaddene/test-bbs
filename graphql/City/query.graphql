@@ -1,0 +1,4 @@
+extend type Query {
+
+    searchCity(search: String! @eq(key: "city_full_name")): [City!]! @all
+}

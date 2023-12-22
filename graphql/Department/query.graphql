@@ -1,7 +1,7 @@
 extend type Query {
-    FindDepartment(
-        id: ID!
-    ): Department
 
-    AllDepartment: [Department!]!
+    Department(id: String! @eq): Department @find
+
+    AllDepartment: [Department!]! @paginate
+
 }
